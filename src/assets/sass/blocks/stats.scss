@@ -1,0 +1,50 @@
+/*
+ * Стили для таблицы со статистикой по игре и игрокам.
+ * Таблица на экранах с результатами игры.
+ */
+
+@import "../mixins/general";
+
+.stats {
+  @include list-unstyled;
+
+  display: flex;
+  align-items: center;
+}
+
+.stats__result {
+  width: 32px;
+  height: 32px;
+
+  margin: 5px;
+
+  &--unknown {
+    background: url("/PixelHunter/dist/assets/img/result-unknown.svg") no-repeat center;
+    // background: url("/assets/img/result-unknown.svg") no-repeat center;
+  }
+
+  &--wrong {
+    background: url("/PixelHunter/dist/assets/img/result-wrong.svg") no-repeat center;
+    // background: url("/assets/img/result-wrong.svg") no-repeat center;
+  }
+
+  &--correct {
+    background: url("/PixelHunter/dist/assets/img/result-correct.svg") no-repeat center;
+    // background: url("/assets/img/result-correct.svg") no-repeat center;
+  }
+
+  &--slow {
+    background: url("/PixelHunter/dist/assets/img/result-slow.svg") no-repeat center;
+    // background: url("/assets/img/result-slow.svg") no-repeat center;
+  }
+
+  &--fast {
+    background: url("/PixelHunter/dist/assets/img/result-fast.svg") no-repeat center;
+    // background: url("/assets/img/result-fast.svg") no-repeat center;
+  }
+
+  &--alive {
+    background: url("/PixelHunter/dist/assets/img/heart__full.svg") no-repeat center;
+    // background: url("/assets/img/heart__full.svg") no-repeat center;
+  }
+}

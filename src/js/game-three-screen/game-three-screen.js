@@ -21,7 +21,7 @@ export default class GameThreeScreen {
 
     this.content = new GameThreeView(this.gameData);
     this.content.onGameOptionsPress = (evt) => {
-      this.stopTimer();
+      this._stopTimer();
       const gameOptions = document.querySelectorAll(`.game__option`);
 
       gameOptions.forEach(function (item) {
@@ -62,59 +62,74 @@ export default class GameThreeScreen {
       }
 
 
-      this.isGameOver();
+      this._isGameOver();
 
     };
+
     this.progressBar = new ProgressBarView(this.model);
     this.root = document.createElement(`div`);
     this.root.append(this.header.element);
     this.root.append(this.content.element);
     this.root.querySelector(`.game`).append(this.progressBar.element);
   }
+
   get element() {
     return this.root;
   }
+
   startGame() {
-
     this._timer = setTimeout(() => this._tick(), 1000);
-
   }
+
   _tick() {
     this.model.tick();
-    this.updateHeader();
+    this._updateHeader();
+    if (this.model.state.responseTime <= 5) {
+      this._timerFlash = setTimeout(() => this._hide(), 500);
+    }
 
     this._timer = setTimeout(() => this._tick(), 1000);
-    this.isTimeOut();
+    this._isTimeOut();
   }
-  updateHeader() {
+
+  _hide() {
+    let gameTimerElement = document.querySelector(`.game__timer`);
+    gameTimerElement.classList.add(`visually-hidden`);
+  }
+
+  _updateHeader() {
     const header = new HeaderView(`headerLong`, this.model);
     header.onBtnBackPress = this.header.onBtnBackPress;
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
   }
-  stopTimer() {
-    clearTimeout(this._timer);
 
+  _stopTimer() {
+    clearTimeout(this._timer);
+    clearTimeout(this._timerFlash);
   }
-  isTimeOut() {
+
+  _isTimeOut() {
     if (this.model.state.responseTime == 0) {
-      this.stopTimer();
+      this._stopTimer();
       this.model.addAnswer(`wrong`);
       this.model.minusLive();
-      this.isGameOver();
+      this._isGameOver();
 
     }
   }
-  isGameOver() {
+
+  _isGameOver() {
     this.wrongAnswers = this.model.state.answers.filter((item) => item == `wrong`);
 
     if (this.wrongAnswers.length > 3 || this.model.currentGame == this.gamesArr.length - 1) {
       Application.showStats(this.model);
     } else {
-      this.nextGame();
+      this._nextGame();
     }
   }
-  nextGame() {
+
+  _nextGame() {
     this.model.nextGame();
     this.model.resetTimer();
     this.gameData = this.gamesArr[this.model.state.currentGame];

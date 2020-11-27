@@ -3,9 +3,7 @@ import INITIAL_STATE from './initialState.js';
 
 export default class GameModel {
   constructor(userName) {
-
     this._state = JSON.parse(JSON.stringify(INITIAL_STATE));
-
     this._state.user = userName;
   }
 

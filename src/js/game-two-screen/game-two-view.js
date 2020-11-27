@@ -1,4 +1,4 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 import imgResize from './../img-resize.js';
 import debug from './../debug.js';
 
@@ -9,7 +9,7 @@ export default class GameTwoView extends AbstractView {
 
 
   }
-  get template() {
+  get _template() {
     const imgFirstSize = {
       'width': this.data.answers[0].image.width,
       'height': this.data.answers[0].image.height
@@ -57,7 +57,7 @@ export default class GameTwoView extends AbstractView {
 
 
   }
-  bind(element) {
+  _bind(element) {
 
 
     const inputForPic = element.querySelectorAll(`[type=radio]`);

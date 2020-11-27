@@ -1,4 +1,4 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 import imgResize from './../img-resize.js';
 import debug from './../debug.js';
 
@@ -8,7 +8,7 @@ export default class GameThreeView extends AbstractView {
     this.data = data;
 
   }
-  get template() {
+  get _template() {
     let rightAnswer;
     if (this.data.question == `Найдите фото среди изображений`) {
       rightAnswer = `photo`;
@@ -52,7 +52,7 @@ export default class GameThreeView extends AbstractView {
 
 
   }
-  bind(element) {
+  _bind(element) {
 
     const gameOptions = element.querySelectorAll(`.game__option`);
 

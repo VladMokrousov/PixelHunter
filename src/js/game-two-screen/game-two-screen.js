@@ -42,7 +42,7 @@ export default class GameTwoScreen {
       evt.target.setAttribute(`checked`, `checked`);
 
       if (inputForFirstPic[0].classList.contains(`marked`) && inputForSecondPic[0].classList.contains(`marked`)) {
-        this.stopTimer();
+        this._stopTimer();
 
         const inputChecked = document.querySelectorAll(`[checked=checked]`);
         const userAnswerForGameTwo = [];
@@ -81,7 +81,7 @@ export default class GameTwoScreen {
 
         }
 
-        this.isGameOver();
+        this._isGameOver();
 
       }
 
@@ -99,54 +99,61 @@ export default class GameTwoScreen {
   }
 
   startGame() {
-
     this._timer = setTimeout(() => this._tick(), 1000);
-
-
   }
 
   _tick() {
     this.model.tick();
-    this.updateHeader();
+
+    this._updateHeader();
+    if (this.model.state.responseTime <= 5) {
+      this._timerFlash = setTimeout(() => this._hide(), 500);
+    }
 
     this._timer = setTimeout(() => this._tick(), 1000);
 
-    this.isTimeOut();
+    this._stopTimer();
   }
 
-  updateHeader() {
+  _hide() {
+    let gameTimerElement = document.querySelector(`.game__timer`);
+    gameTimerElement.classList.add(`visually-hidden`);
+  }
+
+  _updateHeader() {
     const header = new HeaderView(`headerLong`, this.model);
     header.onBtnBackPress = this.header.onBtnBackPress;
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
   }
 
-  stopTimer() {
+  _stopTimer() {
     clearTimeout(this._timer);
+    clearTimeout(this._timerFlash);
 
   }
 
-  isTimeOut() {
+  _stopTimer() {
     if (this.model.state.responseTime == 0) {
 
-      this.stopTimer();
+      this._stopTimer();
       this.model.addAnswer(`wrong`);
       this.model.minusLive();
-      this.isGameOver();
+      this._isGameOver();
 
     }
   }
-  isGameOver() {
+  _isGameOver() {
     this.wrongAnswers = this.model.state.answers.filter((item) => item == `wrong`);
 
     if (this.wrongAnswers.length > 3 || this.model.currentGame == this.gamesArr.length - 1) {
       Application.showStats(this.model);
     } else {
-      this.nextGame();
+      this._nextGame();
     }
   }
 
-  nextGame() {
+  _nextGame() {
     this.model.nextGame();
 
     this.model.resetTimer();

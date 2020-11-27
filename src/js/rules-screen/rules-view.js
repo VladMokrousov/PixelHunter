@@ -1,10 +1,10 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 
 export default class RulesView extends AbstractView {
   constructor() {
     super();
   }
-  get template() {
+  get _template() {
     return `<section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
@@ -23,7 +23,7 @@ export default class RulesView extends AbstractView {
     </section>`;
 
   }
-  bind(element) {
+  _bind(element) {
     const submitBtn = element.querySelector(`.rules__button`);
     const nameInput = element.querySelector(`.rules__input`);
 

@@ -1,4 +1,4 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 
 
 export default class HeaderView extends AbstractView {
@@ -7,7 +7,7 @@ export default class HeaderView extends AbstractView {
     this.headerType = headerType;
     this.model = model;
   }
-  get template() {
+  get _template() {
     if (this.headerType == `headerShort`) {
       return `<header class="header">
         <button class="back">
@@ -49,7 +49,7 @@ export default class HeaderView extends AbstractView {
 
 
   }
-  bind(element) {
+  _bind(element) {
 
     const btnBack = element.querySelector(`.back`);
 

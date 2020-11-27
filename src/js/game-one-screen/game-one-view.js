@@ -1,4 +1,4 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 import imgResize from './../img-resize.js';
 import debug from './../debug.js';
 
@@ -8,7 +8,7 @@ export default class GameOneView extends AbstractView {
     this.data = data;
 
   }
-  get template() {
+  get _template() {
     const imgSize = {
       'width': this.data.answers[0].image.width,
       'height': this.data.answers[0].image.height
@@ -41,7 +41,7 @@ export default class GameOneView extends AbstractView {
 
 
   }
-  bind(element) {
+  _bind(element) {
     const inputForPic = element.querySelectorAll(`[name=question1]`);
     inputForPic.forEach((item) => {
       item.addEventListener(`click`, this.onInputForPicPress);

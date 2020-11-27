@@ -1,11 +1,11 @@
 
-import AbstractView from '../abstract-class.js';
+import AbstractView from '../abstract-view.js';
 
 export default class GreetingView extends AbstractView {
   constructor() {
     super();
   }
-  get template() {
+  get _template() {
     return `<section class="greeting central--blur">
     <img class="greeting__logo" src="assets/img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -31,7 +31,7 @@ export default class GreetingView extends AbstractView {
 
 
   }
-  bind(element) {
+  _bind(element) {
     const btnGreetingContinue = element.querySelector(`.greeting__continue`);
     btnGreetingContinue.addEventListener(`click`, this.onBtnGreetingContinuePress);
   }

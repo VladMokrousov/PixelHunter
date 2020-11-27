@@ -4,7 +4,7 @@ import GameModel from './data/game-model.js';
 import GameTwoScreen from './game-two-screen/game-two-screen.js';
 import GameOneScreen from './game-one-screen/game-one-screen.js';
 import GameThreeScreen from './game-three-screen/game-three-screen.js';
-import GameStatsScreen from './stats-screen/game-stats-screen.js';
+import StatsScreen from './stats-screen/stats-screen.js';
 import {loadGames, loadPastStats, postCurrentStats} from './backend.js';
 
 export default class Application {
@@ -44,7 +44,7 @@ export default class Application {
     // Здесь нужно получить статистику, записанную на сервер
     loadPastStats()
       .then((data) => console.log(data));
-    const statsScreen = new GameStatsScreen(model);
+    const statsScreen = new StatsScreen(model);
     changeView(statsScreen.element);
     // Здесь нужно отправить статистику на сервер
     postCurrentStats(model);

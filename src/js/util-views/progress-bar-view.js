@@ -1,4 +1,4 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 
 
 export default class ProgressBarView extends AbstractView {
@@ -7,7 +7,7 @@ export default class ProgressBarView extends AbstractView {
     this.model = model;
 
   }
-  get template() {
+  get _template() {
 
     return `<ul class="stats">
       <li class="stats__result stats__result--${this.model.answers[0] ? this.model.answers[0] : `unknown`}"></li>

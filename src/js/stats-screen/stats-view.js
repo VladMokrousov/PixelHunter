@@ -1,13 +1,13 @@
-import AbstractView from './../abstract-class.js';
+import AbstractView from './../abstract-view.js';
 
 
-export default class mockDataForStatsView extends AbstractView {
+export default class StatsView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
 
   }
-  get template() {
+  get _template() {
     const wrongAnswer = this.model.answers.filter((item) => item == `wrong`);
     const correctAnswer = this.model.answers.filter((item) => item == `correct`);
     const fastAnswer = this.model.answers.filter((item) => item == `fast`);
@@ -129,10 +129,6 @@ export default class mockDataForStatsView extends AbstractView {
     </table>
     </section>
     `;
-
-
-  }
-  bind(element) {
 
 
   }

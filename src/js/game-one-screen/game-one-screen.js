@@ -57,18 +57,22 @@ export default class GameOneScreen {
 
 
     };
+
     this.progressBar = new ProgressBarView(this.model);
     this.root = document.createElement(`div`);
     this.root.append(this.header.element);
     this.root.append(this.content.element);
     this.root.querySelector(`.game`).append(this.progressBar.element);
   }
+
   get element() {
     return this.root;
   }
+
   startGame() {
     this._timer = setTimeout(() => this._tick(), 1000);
   }
+
   _tick() {
 
     this.model.tick();
@@ -80,16 +84,19 @@ export default class GameOneScreen {
     this._timer = setTimeout(() => this._tick(), 1000);
     this._isTimeOut();
   }
+
   _hide() {
     let gameTimerElement = document.querySelector(`.game__timer`);
     gameTimerElement.classList.add(`visually-hidden`);
   }
+
   _updateHeader() {
     const header = new HeaderView(`headerLong`, this.model);
     header.onBtnBackPress = this.header.onBtnBackPress;
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
   }
+
   _stopTimer() {
     clearTimeout(this._timer);
     clearTimeout(this._timerFlash);
@@ -104,6 +111,7 @@ export default class GameOneScreen {
 
     }
   }
+
   _isGameOver() {
     this.wrongAnswers = this.model.state.answers.filter((item) => item == `wrong`);
 
@@ -114,6 +122,7 @@ export default class GameOneScreen {
       this._nextGame();
     }
   }
+
   _nextGame() {
     this.model.nextGame();
     this.model.resetTimer();

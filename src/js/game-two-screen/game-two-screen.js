@@ -112,7 +112,7 @@ export default class GameTwoScreen {
 
     this._timer = setTimeout(() => this._tick(), 1000);
 
-    this._stopTimer();
+    this._isTimeOut();
   }
 
   _hide() {
@@ -133,7 +133,7 @@ export default class GameTwoScreen {
 
   }
 
-  _stopTimer() {
+  _isTimeOut() {
     if (this.model.state.responseTime == 0) {
 
       this._stopTimer();

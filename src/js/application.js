@@ -19,6 +19,7 @@ export default class Application {
   static showGame(userName) {
     const model = new GameModel(userName);
     const gameIndex = model.state.currentGame;
+
     loadGames()
       .then((games) => {
 

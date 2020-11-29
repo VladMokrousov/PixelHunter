@@ -1,10 +1,10 @@
+import ModalErrorView from './util-views/modal-error-view.js';
+
 const GET_DATA_URL = `https://vladmokrousov.github.io/dataForTrainingProject/pixelhunter.json`;
 
 const onError = () => {
-  const node = document.createElement(`div`);
-  node.style = `margin: 0 auto; text-align: center; background-color: red; font-size: 30px;`;
-  node.textContent = `Произошла ошибка:( Попробуйте перезагрузить страницу`;
-  document.body.insertAdjacentElement(`afterbegin`, node);
+  let modalError = new ModalErrorView();
+  document.querySelector(`.central__content`).append(modalError.element);
 };
 
 const loadGames = () => {
@@ -29,7 +29,7 @@ const loadPastStats = () => {
     }
     throw new Error();
   })
-  .catch(onError);
+  .catch((err) => console.error(err));
 };
 
 const postCurrentStats = (model) => {

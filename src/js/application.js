@@ -12,24 +12,36 @@ export default class Application {
     changeView(intro.element);
   }
 
-
-  static showGame(userName) {
+  static async showGame(userName) {
     const model = new GameModel(userName);
-
-    loadGames()
-      .then((games) => {
-        let gameScreen = new GameScreen(games, model);
-        changeView(gameScreen.element);
-        gameScreen.startGame();
-      });
+    try {
+      const games = await loadGames();
+      let gameScreen = new GameScreen(games, model);
+      changeView(gameScreen.element);
+      gameScreen.startGame();
+    }
+    catch(err) {
+      console.log('Что-то пошло не так');
+    }
   }
 
-  static showStats(model) {
+  static async showStats(model) {
     // Здесь нужно получить статистику, записанную на сервер
-    loadPastStats()
-      .then((data) => console.log(data));
+    try {
+      const dataPreviousStats = await loadPastStats();
+      if (dataPreviousStats) {
+        console.log(dataPreviousStats)
+      } else {
+        throw new Error('Не удалось загрузить статистику предыдущих игр');
+      }
+    }
+    catch(err) {
+      console.log(err.message);
+    }
+  
     const statsScreen = new StatsScreen(model);
     changeView(statsScreen.element);
+
     // Здесь нужно отправить статистику на сервер
     postCurrentStats(model);
   }

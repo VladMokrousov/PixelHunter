@@ -7,50 +7,55 @@ const onError = () => {
   document.querySelector(`.central__content`).append(modalError.element);
 };
 
-const loadGames = () => {
-  const whenGamesLoaded = fetch(GET_DATA_URL);
-  return whenGamesLoaded
-  .then((response) => {
+async function loadGames() {
+  try {
+    const response = await fetch(GET_DATA_URL);
     if (response.ok) {
       return response.json();
     }
-    throw new Error();
-  })
-  .catch(onError);
+    throw new Error('Данные не получены');
+  }
+  catch(err) {
+    console.log(err.message);
+    onError();
+  }
+}
 
-};
-
-const loadPastStats = () => {
-  const whenStatsLoaded = fetch(GET_DATA_URL);
-  return whenStatsLoaded
-  .then((response) => {
+async function loadPastStats() {
+  try {
+    const response = await fetch(GET_DATA_URL);
     if (response.ok) {
       return response.json();
     }
-    throw new Error();
-  })
-  .catch((err) => console.error(err));
-};
+    throw new Error('Данные не получены');
+  }
+  catch(err) {
+    console.log(err.message);
+  }
+}
 
-const postCurrentStats = (model) => {
+async function postCurrentStats(model) {
   // const POST_DATA_URL = `https://es.dump.academy/pixel-hunter/stats/:965995978-:${model.state.user}`;
   const POST_DATA_URL = `https://httpbin.org/post`;
-  const whenStatsPosted = fetch(POST_DATA_URL, {
-    method: `POST`,
-    body: JSON.stringify({
-      "date": Date.now(),
-      "answers": model.answers,
-      "lives": model.lives
-    }),
-    headers: {
-      'Content-Type': `application/json`
-    }
-
-  });
-  whenStatsPosted
-  .then((response) => console.log(response.ok ? `Sent` : `Not sent`))
-  .catch((err) => console.error(err));
-};
-
+  try {
+    await fetch(POST_DATA_URL, {
+      method: `POST`,
+      body: JSON.stringify({
+        "date": Date.now(),
+        "answers": model.answers,
+        "lives": model.lives
+      }),
+      headers: {
+        'Content-Type': `application/json`
+      }
+    });
+   
+    console.log('Данные отправлены');
+  }
+  catch(err){
+    console.log(err.message);
+  }
+  
+}
 
 export {loadGames, loadPastStats, postCurrentStats};
